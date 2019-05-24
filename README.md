@@ -2,16 +2,16 @@
 Environment variables for Python project
 
 # How to use
-```python git clone https://github.com/ableinc/pyenv.git```
-```bash cd pyenv```
-```python pip install .```
-Now import into any python project you have
-```python from dotenv import load_env```
-```python load_env()```
+```git clone https://github.com/ableinc/pyenv.git``` <br />
+```cd pyenv``` <br />
+```pip install .``` <br />
+Now import into any python project you have <br />
+```from dotenv import load_env```<br />
+```load_env()```<br />
 That's it!
 
 # Test
-Please run ```python python test.py``` to see a working example
+Please run ```python test.py``` to see a working example
 
 # Command Line Client
 Coming soon.
