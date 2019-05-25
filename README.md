@@ -56,21 +56,20 @@ that one instance.
  ```
 
 ```bash
-Usage: pyenv [OPTIONS]
+Usage: cli.py [OPTIONS]
 
 Options:
-  -f, --envpath PATH       Location of .env file, defaults to .env in current
-                           working directory  [required]
-  -c, --command TEXT       Run a command that requires local enviornment
-                           variables for one instance
-  -l, --loadobj BOOLEAN    Load .env file as object instead of environment
-                           variable
-  -s, --stringio BOOLEAN   Load .env file as StringIO object instead of
-                           environment variable
-  -a, --autoclose BOOLEAN  Auto-close StringIO object
-  -v, --verbose BOOLEAN    Verbose
-  -i, --ignore BOOLEAN     Ignore special characters in variable values
-  --version                Show the version and exit.
-  --help                   Show this message and exit.
+  -f, --envpath PATH      Location of .env file, defaults to .env in current
+                          working directory  [required]
+  -c, --command TEXT      Run a command that requires local enviornment
+                          variables for one instance
+  -l, --loadobj BOOLEAN   Load .env file as object instead of environment
+                          variable
+  -s, --stringio BOOLEAN  Load .env file as StringIO object instead of
+                          environment variable
+  -v, --verbose BOOLEAN   Verbose
+  -i, --ignore BOOLEAN    Ignore special characters in variable values
+  --version               Show the version and exit.
+  --help                  Show this message and exit.
   ```
 
