@@ -5,9 +5,13 @@ Import environment variables from your .env file or run as command line tool; Py
 
 # How to use
 ```bash
+pip install pydotenvs
+
+or 
+
 git clone https://github.com/ableinc/pyenv.git
 cd pyenv
-pip install .
+pip install --upgrade .
 ```
 Now import into any python project you have <br />
 ``` python
