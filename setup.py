@@ -1,5 +1,5 @@
 import setuptools
-from pyenv import __version__
+from pydotenv import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -14,11 +14,11 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/ableinc/pyenv",
     keywords=['environment variables', 'deployments', 'settings', 'env', 'pydotenv',
-              'configurations', 'python', 'pyenv'],
+              'configurations', 'python', 'pydotenv'],
     packages=['pydotenv'],
     entry_points='''
         [console_scripts]
-        pyenv=pyenv.cli:pyenv
+        pydotenv=pydotenv.cli:pydotenv
     ''',
     install_requires=[
           'click>=7.0',
