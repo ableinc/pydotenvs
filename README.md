@@ -1,5 +1,5 @@
 # PY.Env
-Import environment variables from your .env file or run as command line tool; PyEnv Cli.
+Import environment variables from your .env file or run as command line tool; PyDotEnv Cli.
 * Python 2 & 3
 * Command line tool
 

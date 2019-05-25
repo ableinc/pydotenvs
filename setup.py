@@ -5,17 +5,17 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pyenv",
+    name="pydotenv",
     version=__version__,
     author="AbleInc - Jaylen Douglas",
     author_email="douglas.jaylen@gmail.com",
-    description="Import environment variables from your .env file or run as command line tool; PyEnv Cli.",
+    description="Import environment variables from your .env file or run as command line tool; PyDotEnv Cli.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ableinc/pyenv",
-    keywords=['environment variables', 'deployments', 'settings', 'env', 'pyenv',
-              'configurations', 'python'],
-    packages=['pyenv'],
+    keywords=['environment variables', 'deployments', 'settings', 'env', 'pydotenv',
+              'configurations', 'python', 'pyenv'],
+    packages=['pydotenv'],
     entry_points='''
         [console_scripts]
         pyenv=pyenv.cli:pyenv
