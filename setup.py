@@ -12,7 +12,7 @@ setuptools.setup(
     description="Import environment variables from your .env file or run as command line tool; PyEnv Cli.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://gitlab.com/abledigital/scramble",
+    url="https://github.com/ableinc/pyenv",
     keywords=['environment variables', 'deployments', 'settings', 'env', 'pyenv',
               'configurations', 'python'],
     packages=['pyenv'],
