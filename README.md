@@ -4,21 +4,32 @@ Adds environment variables from your .env file
 * Command line tool
 
 # How to use
-```git clone https://github.com/ableinc/pyenv.git``` <br />
-```cd pyenv``` <br />
-```pip install .``` <br />
+```bash
+git clone https://github.com/ableinc/pyenv.git
+cd pyenv
+pip install .
+```
 Now import into any python project you have <br />
-```from dotenv import load_env```<br />
-```load_env()```<br />
-or<br />
-```load_env('.myEnvFile')```<br />
+``` python
+from dotenv import load_env
+load_env()
+```
 or <br />
-```envObj = load_env_object()```<br />
-```envObj['myEnv']```<br />
+```python 
+load_env('.myEnvFile')
+```
+or <br />
+```python 
+envObj = load_env_object()
+envObj['myEnv']
+```
 That's it!
 
 # Test
-Please run ```python test.py``` to see a working example
+Run this to see a working example
+```python
+python test.py
+``` 
 
 # StringIO
 You can load your local .env file as a StringIO object. 
@@ -26,19 +37,25 @@ By default you are responsible for closing the StringIO
 object. Though, There is an option to auto close upon program
 termination.
 
-```stringObj = load_env(stringIO = True, auto_close = True)```<br />
-```contents = stringObj.getvalue()```
+```python
+stringObj = load_env(stringIO = True, auto_close = True)
+contents = stringObj.getvalue()
+```
 
 # Command Line Tool
 You can use PyEnv as a command line tool. All the same features apply.
 It would be common to use the client tool for the Dictionary & StringIO 
 features of PyEnv.
 
-You can run a command that requires your local enviornment variables
+You can run a command that requires your local environment variables
 with PyEnv command line tool. Your variables will only exist in 
 that one instance.
-i.e. ```python --command 'echo $MY_VARIABLE'```
 
+```python
+ pyenv --command 'echo $MY_VARIABLE'
+ ```
+
+```python
 Usage: cli.py [OPTIONS]
 
 Options:
@@ -55,3 +72,5 @@ Options:
   -i, --ignore BOOLEAN     Ignore special characters in variable values
   --version                Show the version and exit.
   --help                   Show this message and exit.
+  ```
+
