@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pydotenv",
+    name="pydotenvs",
     version=__version__,
     author="AbleInc - Jaylen Douglas",
     author_email="douglas.jaylen@gmail.com",
