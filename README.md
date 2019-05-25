@@ -56,7 +56,7 @@ that one instance.
  ```
 
 ```bash
-Usage: cli.py [OPTIONS]
+Usage: pyenv [OPTIONS]
 
 Options:
   -f, --envpath PATH      Location of .env file, defaults to .env in current
