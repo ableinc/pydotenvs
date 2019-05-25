@@ -9,17 +9,20 @@ setuptools.setup(
     version=__version__,
     author="AbleInc - Jaylen Douglas",
     author_email="douglas.jaylen@gmail.com",
-    description="Import your environment variables, manually or automted.",
+    description="Import environment variables from your .env file or run as command line tool; PyEnv Cli.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://gitlab.com/abledigital/scramble",
-    keywords=['environment variables', 'deployments', 'settings', 'env', 'dotenv',
+    keywords=['environment variables', 'deployments', 'settings', 'env', 'pyenv',
               'configurations', 'python'],
-    packages=setuptools.find_packages(),
+    packages=['pyenv'],
     entry_points='''
         [console_scripts]
-        pyenv=pyenv.cli:cli
+        pyenv=pyenv.cli:pyenv
     ''',
+    install_requires=[
+          'click>=7.0',
+    ],
     classifiers=[
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",

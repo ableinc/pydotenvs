@@ -44,7 +44,6 @@ class PyEnv:
 				idx = re.sub(r'[-!@_""*&^%$#)(]', "", en_v).find('=')
 			environ[str(en_v[:idx])] = str(en_v[idx+1:])
 		if command or command != '':
-			args = shlex.split(command)
 			subprocess.run(shlex.split(command), cwd=getcwd(), env=environ.copy())
 
 	def load_env(self):
@@ -71,14 +70,18 @@ class PyEnv:
 			env_obj[str(en_v[:idx])] = str(en_v[idx+1:])
 		return env_obj
 
+
 def load_env(env_path: str = '.env', stringIO: bool = False, auto_close: bool = False, verbose: bool = False, ignoreChars: bool = False):
 	return PyEnv(env_path, stringIO, auto_close, verbose, ignoreChars).load_env()
+
 
 def load_env_object(env_path: str = '.env', verbose: bool = False, ignoreChars: bool = False):
 	return PyEnv(env_path, verbose=verbose, ignoreChars=ignoreChars).load_env_object()
 
+
 def load_env_cli(env_path: str = '.env', command: str = '', verbose: bool = False, ignoreChars: bool = False):
 	return PyEnv(env_path, verbose=verbose, ignoreChars=ignoreChars).cli(command)
+
 
 def clear_env():
 	environ.clear()

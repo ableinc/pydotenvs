@@ -12,7 +12,6 @@ from pyenv.version import __version__
 @click.option('-i', '--ignore', default=False, type=click.BOOL, help='Ignore special characters in variable values')
 @click.version_option(version=__version__)
 def pyenv(envpath, command, loadobj, stringio, verbose, ignore):
-	""" pyenv [OPTIONS] """
 	if stringio:
 		stringObj = load_env(env_path=envpath, stringIO=stringio, auto_close=True, verbose=verbose)  # without auto close, you're resposible for closing StringIO object
 		print(stringObj.getvalue())
