@@ -1,6 +1,7 @@
 # PY.Env
-Environment variables for Python project
-* Version Compatibility: Python 2 & 3
+Adds environment variables from your .env file
+* Python 2 & 3
+* Command line tool
 
 # How to use
 ```git clone https://github.com/ableinc/pyenv.git``` <br />
@@ -27,3 +28,30 @@ termination.
 
 ```stringObj = load_env(stringIO = True, auto_close = True)```<br />
 ```contents = stringObj.getvalue()```
+
+# Command Line Tool
+You can use PyEnv as a command line tool. All the same features apply.
+It would be common to use the client tool for the Dictionary & StringIO 
+features of PyEnv.
+
+You can run a command that requires your local enviornment variables
+with PyEnv command line tool. Your variables will only exist in 
+that one instance.
+i.e. ```python --command 'echo $MY_VARIABLE'```
+
+Usage: cli.py [OPTIONS]
+
+Options:
+  -f, --envpath PATH       Location of .env file, defaults to .env in current
+                           working directory  [required]
+  -c, --command TEXT       Run a command that requires local enviornment
+                           variables for one instance
+  -l, --loadobj BOOLEAN    Load .env file as object instead of environment
+                           variable
+  -s, --stringio BOOLEAN   Load .env file as StringIO object instead of
+                           environment variable
+  -a, --autoclose BOOLEAN  Auto-close StringIO object
+  -v, --verbose BOOLEAN    Verbose
+  -i, --ignore BOOLEAN     Ignore special characters in variable values
+  --version                Show the version and exit.
+  --help                   Show this message and exit.

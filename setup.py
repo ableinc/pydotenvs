@@ -1,11 +1,12 @@
 import setuptools
+from pyenv import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="pyenv",
-    version="0.0.1",
+    version=__version__,
     author="AbleInc - Jaylen Douglas",
     author_email="douglas.jaylen@gmail.com",
     description="Import your environment variables, manually or automted.",
@@ -17,7 +18,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     entry_points='''
         [console_scripts]
-        pyenv=dotenv.cli:cli
+        pyenv=pyenv.cli:cli
     ''',
     classifiers=[
         "Programming Language :: Python :: 2",

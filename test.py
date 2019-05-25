@@ -4,8 +4,8 @@ from os.path import isfile
 
 # write new .env file if not present
 if not isfile('.env'):
-    with open('.env', 'w+', encoding='utf-8') as write_env:
-        write_env.writelines('HELLO=WORLD\nFOO=BAR')
+	with open('.env', 'w+', encoding='utf-8') as write_env:
+		write_env.writelines('HELLO=WORLD\nFOO=BAR')
 
 # import library
 load_env()
@@ -16,9 +16,9 @@ print('Clearing envs. Confirming...')
 clear_env()
 # confirm envs are clear
 if not getenv("HELLO"):
-    print('No envs.')
+  print('No envs.')
 else:
-    print('Envs remain: ', getenv("HELLO"))
+  print('Envs remain: ', getenv("HELLO"))
 # Dictionary
 print('Getting env as Dictionary...')
 envDict = load_env_object()
