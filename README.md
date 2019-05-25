@@ -51,11 +51,11 @@ You can run a command that requires your local environment variables
 with PyEnv command line tool. Your variables will only exist in 
 that one instance.
 
-```python
+```bash
  pyenv --command 'echo $MY_VARIABLE'
  ```
 
-```python
+```bash
 Usage: cli.py [OPTIONS]
 
 Options:
