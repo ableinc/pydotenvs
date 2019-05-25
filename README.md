@@ -13,13 +13,13 @@ or<br />
 ```load_env('.myEnvFile')```<br />
 or <br />
 ```envObj = load_env_object()```<br />
-```envObj['myEnv']```
+```envObj['myEnv']```<br />
 That's it!
 
 # Test
 Please run ```python test.py``` to see a working example
 
-# StrinIO
+# StringIO
 You can load your local .env file as a StringIO object. 
 By default you are responsible for closing the StringIO
 object. Though, There is an option to auto close upon program
