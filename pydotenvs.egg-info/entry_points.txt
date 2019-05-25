@@ -1,4 +1,0 @@
-
-        [console_scripts]
-        pydotenv=pydotenv.cli:pydotenv
-    

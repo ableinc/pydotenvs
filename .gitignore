@@ -7,3 +7,4 @@ docs.txt
 pyenv.egg-info
 **/dist
 **/build/
+**/pydotenvs.egg-info/
