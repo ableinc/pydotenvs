@@ -18,7 +18,7 @@ setuptools.setup(
     packages=['pydotenv'],
     entry_points='''
         [console_scripts]
-        pydotenv=pydotenv.cli:pydotenv
+        pyenv=pydotenv.cli:pyenv
     ''',
     install_requires=[
           'click>=7.0',
