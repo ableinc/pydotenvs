@@ -72,7 +72,6 @@ Options:
   -s, --stringio BOOLEAN  Load .env file as StringIO object instead of
                           environment variable
   -v, --verbose BOOLEAN   Verbose
-  -i, --ignore BOOLEAN    Ignore special characters in variable values
   --version               Show the version and exit.
   --help                  Show this message and exit.
   ```
