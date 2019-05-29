@@ -15,7 +15,7 @@ pip install --upgrade .
 ```
 Now import into any python project you have <br />
 ``` python
-from dotenv import load_env
+from pydotenv import load_env
 load_env()
 ```
 or <br />
@@ -46,7 +46,7 @@ stringObj = load_env(stringIO = True, auto_close = True)
 contents = stringObj.getvalue()
 ```
 
-# Command Line Tool
+# Command Line Tool - CLI
 You can use PyEnv as a command line tool. All the same features apply.
 It would be common to use the client tool for the Dictionary & StringIO 
 features of PyEnv.

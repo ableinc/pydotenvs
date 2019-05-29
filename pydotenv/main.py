@@ -11,9 +11,9 @@ class PyEnv:
 		self.ignore_chars = ignoreChars
 		self.stringIOObject = None
 		if self.auto_close:
-			atexit.register(self.printer)
+			atexit.register(self.closer)
 
-	def printer(self):
+	def closer(self):
 		if self.stringIOObject:
 			if self.verbose:
 				print('Auto-closing StringIO Object')
