@@ -15,7 +15,7 @@ pip install --upgrade .
 ```
 Now import into any python project you have <br />
 ``` python
-from pydotenv import load_env
+from pydotenvs import load_env
 load_env()
 ```
 or <br />
@@ -32,7 +32,7 @@ That's it!
 # Test
 Run this to see a working example
 ```python
-python test.py
+python example/demo.py
 ``` 
 
 # StringIO
@@ -42,6 +42,7 @@ object. Though, There is an option to auto close upon program
 termination.
 
 ```python
+from pydotenvs import load_env
 stringObj = load_env(stringIO = True, auto_close = True)
 contents = stringObj.getvalue()
 ```

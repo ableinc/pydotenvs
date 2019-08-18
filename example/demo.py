@@ -1,4 +1,4 @@
-from pydotenv import load_env, load_env_object, clear_env
+from pydotenvs import load_env, load_env_object, clear_env
 from os import getenv
 from os.path import isfile
 

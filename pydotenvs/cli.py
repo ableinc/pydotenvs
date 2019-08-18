@@ -1,9 +1,9 @@
 import click, os, sys
-from pydotenv.main import load_env_cli, load_env, load_env_object
-from pydotenv.version import __version__
+from pydotenvs.main import load_env_cli, load_env, load_env_object
+from pydotenvs.version import __version__
 
 
-@click.command('pydotenv')
+@click.command('pydotenvs')
 @click.option('-f', '--envpath', required=1, default=os.path.join(os.getcwd(), '.env'), type=click.Path(exists=True), help='Location of .env file, defaults to .env in current working directory')
 @click.option('-c', '--command', type=click.STRING, help='Run a command that requires local enviornment variables for one instance')
 @click.option('-l', '--loadobj', default=False, type=click.BOOL, help='Load .env file as object instead of environment variable')
