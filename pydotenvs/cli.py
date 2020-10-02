@@ -13,11 +13,11 @@ from pydotenvs.version import __version__
 def pyenv(envpath, command, loadobj, stringio, verbose):
 	if stringio:
 		stringObj = load_env(env_path=envpath, stringIO=stringio, auto_close=True, verbose=verbose)  # without auto close, you're resposible for closing StringIO object
-		print(stringObj.getvalue())
+		click.echo(stringObj.getvalue())
 		sys.exit()
 	if loadobj:
 		envDict = load_env_object(env_path=envpath, verbose=verbose)
-		print(envDict)
+		click.echo(envDict)
 		sys.exit()
 
 	# if neither above are true do as normal

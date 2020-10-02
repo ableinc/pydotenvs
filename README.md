@@ -11,7 +11,7 @@ or
 
 git clone https://github.com/ableinc/pyenv.git
 cd pyenv
-pip install --upgrade .
+pip install --editable .
 ```
 Now import into any python project you have <br />
 ``` python
@@ -77,3 +77,7 @@ Options:
   --help                  Show this message and exit.
   ```
 
+# Changelog
+* October 2020 - Minor version update
+  - Any message that should/shall be printed (unrelated to an error) will be controlled by the boolean value of verbose.
+  - Cleaned the CLI code, slightly
