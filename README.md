@@ -65,6 +65,17 @@ or
 pyenv -f .env -n .newenv -t True
 ```
 
+# Clear
+You can clear environment variables during runtime with the ```clear_env``` 
+function. You can provide the .env file path or use the default file path.
+If you've ran a transfer during the current runtime, it will only remove the
+variables set in the new environment variable file. By default it will only
+clear the environment variables set in the .env file path provided. Example:
+```python
+from pydotenvs import clear_env
+clear_env(env_path = '.env', module_init_only=True)
+```
+
 # Command Line Tool - CLI
 You can use PyEnv as a command line tool. All the same features apply.
 It would be common to use the client tool for the Dictionary & StringIO 
@@ -96,6 +107,8 @@ Options:
                           variable
   -s, --stringio BOOLEAN  Load .env file as StringIO object instead of
                           environment variable
+  --clear BOOLEAN         Clear the environment variables set by pydotenvs or
+                          all variables during runtime.
   -v, --verbose BOOLEAN   Verbose
   --version               Show the version and exit.
   --help                  Show this message and exit.
@@ -106,6 +119,7 @@ Options:
   - You can now transfer an old .env file document to a new .env file document. Described above.
   - Before, the .env file was required at root of the project directory. This is no longer the case, you
     can now give any file path on the system.
+  - Option to clear all environment variables or only the ones imported by pydotenvs - Default: module_init_only=True
 * October 2020 - Minor version update
   - Any message that should/shall be printed (unrelated to an error) will be controlled by the boolean value of verbose.
   - Cleaned the CLI code, slightly
