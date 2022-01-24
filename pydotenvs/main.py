@@ -19,20 +19,25 @@ class PyEnv:
                 print('Auto-closing StringIO Object')
             self.stringIOObject.close()
 
-    def _read_env_file(self):
+    def _read_env_file(self, explicit_file_path = None):
+        env_file_path = [explicit_file_path if explicit_file_path != None else self.env_path][0]
         if not self.stringIO:
             try:
-                with open(os.path.join(environ['PWD'], self.env_path), 'r', encoding='utf-8') as envfile:
+                with open(os.path.join(environ['PWD'], env_file_path), 'r', encoding='utf-8') as envfile:
                     return envfile.readlines()
             except TypeError:
                 if self.verbose:
-                    print('Invalid env file type.')
+                    raise TypeError('Invalid env file type.')
             except FileNotFoundError:
-                if self.verbose:
-                    print('Unable to find env file.')
+                try:
+                    with open(env_file_path, 'r', encoding='utf-8') as envfile:
+                        return envfile.readlines()
+                except FileNotFoundError:
+                    if self.verbose:
+                        raise FileNotFoundError('Unable to find env file.')
         else:
             self.stringIOObject = io.StringIO()
-            env_file = io.open(self.env_path,mode='r', encoding='utf-8').read()
+            env_file = io.open(env_file_path, mode='r', encoding='utf-8').read()
             self.stringIOObject.write(env_file)
             return self.stringIOObject
 
@@ -47,7 +52,7 @@ class PyEnv:
                 subprocess.run(shlex.split(command), cwd=getcwd(), env=environ.copy())
         except TypeError:
             if self.verbose:
-                print('Unable to load .env')
+                raise TypeError('Unable to load .env')
 
     def load_env(self):
         env_file = self._read_env_file()
@@ -60,11 +65,11 @@ class PyEnv:
                 environ[str(en_v[:idx])] = str(en_v[idx+1:])
         except TypeError:
             if self.verbose:
-                print('Unable to load .env')
+                raise TypeError('Unable to load .env')
 
-    def load_env_object(self):
+    def load_env_object(self, filepath = None):
         env_obj = {}
-        env_file = self._read_env_file()
+        env_file = self._read_env_file(filepath)
         try:
             for env in env_file:
                 en_v = re.sub("['\"]", '', env.replace('\n', ''))
@@ -72,7 +77,24 @@ class PyEnv:
                 env_obj[str(en_v[:idx])] = str(en_v[idx+1:])
             return env_obj
         except TypeError as te:
-            print(f'TypeError: {e}')
+            raise TypeError(te)
+    
+    def transfer_env_variables(self, new_env, preserve):
+        old_env_file = self.load_env_object()
+        new_env_file = self.load_env_object(new_env)
+        new_data = []
+        for key, value in old_env_file.items():
+            try:
+                if preserve:
+                    new_env_file[key]
+                else:
+                    new_env_file[key] = value
+            except KeyError:
+                new_env_file[key] = value
+        for key, value in new_env_file.items():
+            new_data.append('{}={}\n'.format(key, value))
+        with open(new_env, 'w', encoding='utf-8') as write_new_env_file:
+            write_new_env_file.writelines(new_data)
 
 
 def load_env(env_path: str = '.env', stringIO: bool = False, auto_close: bool = False, verbose: bool = False):
@@ -89,3 +111,8 @@ def load_env_cli(env_path: str = '.env', command: str = '', verbose: bool = Fals
 
 def clear_env():
     environ.clear()
+
+
+def transfer_new_env(old_env_path: str, new_env_path: str, preserve: bool = True):
+    return PyEnv(old_env_path).transfer_env_variables(new_env_path, preserve)
+

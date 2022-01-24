@@ -9,3 +9,4 @@ pyenv.egg-info
 **/build/
 **/pydotenvs.egg-info/
 setup.cfg
+.newenv
