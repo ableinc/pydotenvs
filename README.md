@@ -4,7 +4,7 @@ Import environment variables from your .env file or run as command line tool; Py
 * Command line tool
 
 # Version
-Stable: v0.1.5
+Stable: v0.1.6
 
 # How to use
 ```bash
