@@ -1,11 +1,11 @@
 from pydotenvs import load_env, load_env_object, clear_env
-from os import getenv
-from os.path import isfile
+from os import getenv, curdir
+from os.path import isfile, abspath
 
 # write new .env file if not present
 if not isfile('.env'):
     with open('.env', 'w+', encoding='utf-8') as write_env:
-        write_env.writelines('HELLO=WORLD\nFOO=BAR')
+        write_env.write('HELLO=WORLD\nFOO=BAR')
 
 # import library
 load_env()
@@ -29,3 +29,9 @@ stringObj = load_env(stringIO=True, auto_close=True,
                      verbose=True)  # without auto close, you're resposible for closing StringIO object
 contents = stringObj.getvalue()
 print('StringIO Object Contents:\n', contents)
+
+# load explicit path
+explicit_path = abspath(curdir) + '/.env'
+load_env(explicit_path)
+# print results
+print(f'(Explicit Path) Hello Variable: {getenv("HELLO")} - Foo Variable: {getenv("FOO")}')

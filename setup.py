@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="pydotenvs",
     version=__version__,
-    author="AbleInc - Jaylen Douglas",
+    author="Jaylen Douglas",
     author_email="douglas.jaylen@gmail.com",
     description="Import environment variables from your .env file or run as command line tool; PyDotEnv Cli.",
     long_description=long_description,

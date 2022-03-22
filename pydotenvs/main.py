@@ -1,4 +1,4 @@
-from os import environ, getcwd
+from os import environ, getcwd, curdir
 import os.path
 import re, io, atexit, subprocess, shlex
 
@@ -29,6 +29,9 @@ class PyEnv:
             except TypeError:
                 if self.verbose:
                     raise TypeError('Invalid env file type.')
+            except KeyError:
+                with open(os.path.join(os.path.abspath(curdir), env_file_path), 'r', encoding='utf-8') as envfile:
+                    return envfile.readlines()
             except FileNotFoundError:
                 try:
                     with open(env_file_path, 'r', encoding='utf-8') as envfile:
@@ -55,8 +58,8 @@ class PyEnv:
             if self.verbose:
                 raise TypeError('Unable to load .env via client. Reason: {}'.format(error))
 
-    def load_env(self):
-        env_file = self._read_env_file()
+    def load_env(self, explicit_path):
+        env_file = self._read_env_file(explicit_file_path=explicit_path)
         if self.stringIO:
             return env_file
         try:
@@ -112,7 +115,10 @@ class PyEnv:
             pass
 
 def load_env(env_path: str = '.env', stringIO: bool = False, auto_close: bool = False, verbose: bool = False):
-    return PyEnv(env_path, stringIO, auto_close, verbose).load_env()
+    explicit_path = None
+    if env_path != '.env':
+        explicit_path = env_path
+    return PyEnv(env_path, stringIO, auto_close, verbose).load_env(explicit_path)
 
 
 def load_env_object(env_path: str = '.env', verbose: bool = False):
