@@ -20,22 +20,30 @@ class PyEnv:
                 print('Auto-closing StringIO Object')
             self.stringIOObject.close()
 
+    @staticmethod
+    def _cleanup(lines):
+        results = []
+        for line in lines:
+            if line != '' and line != ' ' and line != '\n' and not line.startswith('#'):
+                results.append(line)
+        return results
+
     def _read_env_file(self, explicit_file_path = None):
         env_file_path = [explicit_file_path if explicit_file_path != None else self.env_path][0]
         if not self.stringIO:
             try:
                 with open(os.path.join(environ['PWD'], env_file_path), 'r', encoding='utf-8') as envfile:
-                    return envfile.readlines()
+                    return self._cleanup(envfile.readlines())
             except TypeError:
                 if self.verbose:
                     raise TypeError('Invalid env file type.')
             except KeyError:
                 with open(os.path.join(os.path.abspath(curdir), env_file_path), 'r', encoding='utf-8') as envfile:
-                    return envfile.readlines()
+                    return self._cleanup(envfile.readlines())
             except FileNotFoundError:
                 try:
                     with open(env_file_path, 'r', encoding='utf-8') as envfile:
-                        return envfile.readlines()
+                        return self._cleanup(envfile.readlines())
                 except FileNotFoundError:
                     if self.verbose:
                         raise FileNotFoundError('Unable to find env file.')
@@ -57,8 +65,6 @@ class PyEnv:
         except TypeError as error:
             if self.verbose:
                 raise TypeError('Unable to load .env via client. Reason: {}'.format(error))
-        except OSError as error:
-            pass
 
     def load_env(self, explicit_path):
         env_file = self._read_env_file(explicit_file_path=explicit_path)
@@ -72,8 +78,6 @@ class PyEnv:
         except TypeError as error:
             if self.verbose:
                 raise TypeError('Unable to load .env via module import. Reason: {}'.format(error))
-        except OSError as error:
-            pass
 
     def load_env_object(self, filepath = None):
         env_obj = {}
@@ -86,8 +90,6 @@ class PyEnv:
             return env_obj
         except TypeError as error:
             raise TypeError('Unable to load .env as object via module import: Reason: {}'.format(error))
-        except OSError as error:
-            pass
     
     def transfer_env_variables(self, new_env, preserve):
         old_env_file = self.load_env_object()

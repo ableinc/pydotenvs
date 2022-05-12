@@ -10,3 +10,4 @@ pyenv.egg-info
 **/pydotenvs.egg-info/
 setup.cfg
 .newenv
+test.py
