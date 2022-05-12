@@ -57,6 +57,8 @@ class PyEnv:
         except TypeError as error:
             if self.verbose:
                 raise TypeError('Unable to load .env via client. Reason: {}'.format(error))
+        except OSError as error:
+            pass
 
     def load_env(self, explicit_path):
         env_file = self._read_env_file(explicit_file_path=explicit_path)
@@ -70,6 +72,8 @@ class PyEnv:
         except TypeError as error:
             if self.verbose:
                 raise TypeError('Unable to load .env via module import. Reason: {}'.format(error))
+        except OSError as error:
+            pass
 
     def load_env_object(self, filepath = None):
         env_obj = {}
@@ -82,6 +86,8 @@ class PyEnv:
             return env_obj
         except TypeError as error:
             raise TypeError('Unable to load .env as object via module import: Reason: {}'.format(error))
+        except OSError as error:
+            pass
     
     def transfer_env_variables(self, new_env, preserve):
         old_env_file = self.load_env_object()
