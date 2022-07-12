@@ -1,7 +1,7 @@
 from os import environ, getcwd, curdir
 import os.path
 import re, io, atexit, subprocess, shlex
-
+from json import loads, JSONDecodeError
 
 class PyEnv:
     def __init__(self, env_path: str = '.env', stringIO: bool = False, auto_close: bool = False, verbose: bool = False):
@@ -52,14 +52,29 @@ class PyEnv:
             env_file = io.open(env_file_path, mode='r', encoding='utf-8').read()
             self.stringIOObject.write(env_file)
             return self.stringIOObject
+    
+    @staticmethod
+    def _traverse_env_file_for_variables(env_file, return_object = False):
+        env_obj = {}
+        for env in env_file:
+            if env.split('=')[1].replace('\n', '').startswith('{') and env.split('=')[1].replace('\n', '').endswith('}') and ':' in env.split('=')[1]:
+                en_v = env.replace('\n', '')
+            elif env.split('=')[1].replace('\n' ,'').startswith('[') and env.split('=')[1].replace('\n' ,'').endswith(']'):
+                en_v = env.replace('\n', '')
+            else:
+                en_v = re.sub("['\"]", '', env.replace('\n', ''))
+            idx = en_v.find('=')
+            value = en_v[idx+1:]
+            if return_object:
+                env_obj[str(en_v[:idx])] = str(value)
+            else:
+                environ[str(en_v[:idx])] = str(value)
+        return env_obj
 
     def cli(self, command):
         env_file = self._read_env_file()
         try:
-            for env in env_file:
-                en_v = re.sub("['\"]", '', env.replace('\n', ''))
-                idx = en_v.find('=')
-                environ[str(en_v[:idx])] = str(en_v[idx+1:])
+            self._traverse_env_file_for_variables(env_file=env_file)
             if command or command != '':
                 subprocess.run(shlex.split(command), cwd=getcwd(), env=environ.copy())
         except TypeError as error:
@@ -71,29 +86,39 @@ class PyEnv:
         if self.stringIO:
             return env_file
         try:
-            for env in env_file:
-                en_v = re.sub("['\"]", '', env.replace('\n', ''))
-                idx = en_v.find('=')
-                environ[str(en_v[:idx])] = str(en_v[idx+1:])
+            self._traverse_env_file_for_variables(env_file=env_file)
         except TypeError as error:
             if self.verbose:
                 raise TypeError('Unable to load .env via module import. Reason: {}'.format(error))
 
-    def load_env_object(self, filepath = None):
-        env_obj = {}
+    def load_env_object(self, filepath = None, values_as_datatype = False):
         env_file = self._read_env_file(filepath)
         try:
-            for env in env_file:
-                en_v = re.sub("['\"]", '', env.replace('\n', ''))
-                idx = en_v.find('=')
-                env_obj[str(en_v[:idx])] = str(en_v[idx+1:])
+            env_obj = self._traverse_env_file_for_variables(env_file=env_file, return_object=True)
+            if values_as_datatype:
+                for key, value in env_obj.items():
+                    # lists/arrays
+                    if value.startswith('[') and value.endswith(']'):
+                        env_obj[key] = value.strip('][').replace(' ', '').split(',')
+                    # integers
+                    if value.isnumeric():
+                        env_obj[key] = int(value)
+                    # floats
+                    if '.' in value and value.split('.')[0].isnumeric() and value.split('.')[1].isnumeric():
+                        env_obj[key] = float(value)
+                    # dictionaries
+                    if value.startswith('{') and value.endswith('}') and ':' in value:
+                        env_obj[key] = loads(value)
             return env_obj
         except TypeError as error:
             raise TypeError('Unable to load .env as object via module import: Reason: {}'.format(error))
+        except JSONDecodeError as error:
+            print('JSONDecodeError: ', error)
+            return env_obj
     
     def transfer_env_variables(self, new_env, preserve):
         old_env_file = self.load_env_object()
-        new_env_file = self.load_env_object(new_env)
+        new_env_file = self.load_env_object(filepath=new_env)
         new_data = []
         for key, value in old_env_file.items():
             try:
@@ -112,7 +137,7 @@ class PyEnv:
     def clear_self_initialized_variables(self):
         envs = None
         if self.transferDocumentFilePath != None:
-            envs = self.load_env_object(self.transferDocumentFilePath)
+            envs = self.load_env_object(filepath=self.transferDocumentFilePath)
         else:
             envs = self.load_env_object()
         try:
@@ -129,8 +154,8 @@ def load_env(env_path: str = '.env', stringIO: bool = False, auto_close: bool = 
     return PyEnv(env_path, stringIO, auto_close, verbose).load_env(explicit_path)
 
 
-def load_env_object(env_path: str = '.env', verbose: bool = False):
-    return PyEnv(env_path, verbose=verbose).load_env_object()
+def load_env_object(env_path: str = '.env', values_as_datatype = False, verbose: bool = False):
+    return PyEnv(env_path, verbose=verbose).load_env_object(values_as_datatype=values_as_datatype)
 
 
 def load_env_cli(env_path: str = '.env', command: str = '', verbose: bool = False):
