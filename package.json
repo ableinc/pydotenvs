@@ -1,0 +1,16 @@
+{
+    "name": "pydotenvs",
+    "version": "0.2.0",
+    "description": "Import environment variables from your .env file or run as command line tool; PyDotEnv Cli.",
+    "main": "pydotenvs/main.py",
+    "scripts": {
+        "start": "python pydotenvs/main.py",
+        "test": "python tests/test_main.py"
+    },
+    "author": "Jaylen Douglas",
+    "license": "ISC",
+    "dependencies": {
+        "Click": "7.0"
+    },
+    "devDependencies": {}
+}

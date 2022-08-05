@@ -143,6 +143,8 @@ Options:
 
 ## Changelog
 
+* August 2022
+  * The pydotenvs package is now managed by the pyenv package manager. Visit Pypm here: [PyPm on Github](https://github.com/ableinc/pypm)
 * July 2022 - Minor version update
   * When using ***load_env_object()*** you can now return the values as their respective data type. i.e ***load_env_object('.env', values_as_datatype=True)*** (Note: default is False. Data types supported are integer, float, dictionary, string, and list.)
   * Squashed some bugs :)
